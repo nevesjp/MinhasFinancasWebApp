@@ -1,0 +1,164 @@
+﻿@page
+@model MinhasFinancasWebApp.Pages.Financeiro.IndexModel
+@{
+	ViewData["Title"] = "Financeiro";
+}
+
+<h1 class="mb-4">Módulo Financeiro</h1>
+
+
+@if (TempData["Sucesso"] != null)
+{
+	<div class="alert alert-success">
+		@TempData["Sucesso"]
+	</div>
+}
+
+@if (TempData["Erro"] != null)
+{
+	<div class="alert alert-danger">
+		@TempData["Erro"]
+	</div>
+}
+
+<div class="row mb-4">
+	<div class="col-md-4">
+		<div class="card text-bg-success">
+			<div class="card-body">
+				<h5>Total Receitas</h5>
+				<h3>@Model.TotalReceitas.ToString("C")</h3>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-4">
+		<div class="card text-bg-danger">
+			<div class="card-body">
+				<h5>Total Despesas</h5>
+				<h3>@Model.TotalDespesas.ToString("C")</h3>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-4">
+		<div class="card text-bg-primary">
+			<div class="card-body @(Model.Saldo > 0 ? "alert-success" : "alert-danger")">
+				<h5>Saldo</h5>
+				<h3>@Model.Saldo.ToString("C")</h3>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="card mb-4">
+	<div class="card-header">
+		Novo Lançamento
+	</div>
+
+	<div class="card-body">
+		<form method="post">
+			<div class="row mb-3">
+				<div class="col-md-3">
+					<label class="form-label">Tipo</label>
+					<select asp-for="NovoLancamento.Tipo" class="form-select">
+						<option value="Receita">Receita</option>
+						<option value="Despesa">Despesa</option>
+					</select>
+				</div>
+
+				<div class="col-md-3">
+					<label class="form-label">Descrição</label>
+					<input asp-for="NovoLancamento.Descricao" class="form-control" />
+				</div>
+
+				<div class="col-md-2">
+					<label class="form-label">Valor</label>
+					<input asp-for="NovoLancamento.Valor" class="form-control" />
+				</div>
+
+				<div class="col-md-2">
+					<label class="form-label">Data</label>
+					<input asp-for="NovoLancamento.Data" class="form-control" />
+				</div>
+
+				<div class="col-md-2">
+					<label class="form-label">Categoria</label>
+					<input asp-for="NovoLancamento.Categoria" class="form-control" />
+				</div>
+
+				<div class="col-md-2">
+					<label class="form-label">Pago</label>
+					<input asp-for="NovoLancamento.Pago" class="form-check" />
+				</div>
+			</div>
+
+			<button type="submit" class="btn btn-primary">
+				Cadastrar
+			</button>
+			<a asp-page="/Menu" class="btn btn-secondary">
+				Voltar
+			</a>
+			<a asp-page="/Login" class="btn btn-secondary">
+				Logoff
+			</a>
+		</form>
+		<div class="card-body">
+			<div class="row mb-4">
+			<form method="post" asp-page-handler="Sair">
+				<button class="btn btn-warning" type="submit">Sair</button>
+			</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="card">
+	<div class="card-header">
+		Lançamentos cadastrados
+	</div>
+
+	<div class="card-body">
+		@if (Model.Lancamentos.Any())
+		{
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Tipo</th>
+						<th>Descrição</th>
+						<th>Valor</th>
+						<th>Data</th>
+						<th>Categoria</th>
+						<th>Pago</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					@foreach (var item in Model.Lancamentos)
+					{
+						<tr class="@(item.Tipo == "Receita" ? "table-success" : "table-danger")">
+							<td>@item.Tipo</td>
+							<td>@item.Descricao</td>
+							<td>@item.Valor.ToString("C")</td>
+							<td>@item.Data.ToString("dd/MM/yyyy")</td>
+							<td>@item.Categoria</td>
+							<td>@(item.Pago ? "Sim": "Não")</td>
+							<td>
+								<form method="post" asp-page-handler="Excluir" asp-route-id="@item.Id">
+									<button type="submit" class="btn btn-danger">
+										Excluir
+									</button>
+								</form>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		}
+		else
+		{
+			<p class="text-muted">Nenhum lançamento cadastrado ainda.</p>
+		}
+	</div>
+</div>
+
+

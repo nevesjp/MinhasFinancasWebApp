@@ -1,0 +1,44 @@
+﻿@page
+@model MinhasFinancasWebApp.Pages.LoginModel
+@{
+	ViewData["Title"] = "Login";
+}
+
+<h2>Login</h2>
+<form method="post" onsubmit="return confirmarLogin();">
+	<div>
+		<label>Usuário:</label>
+		<input type="text" asp-for="Username" />
+	</div>
+
+	<div>
+		<label>Senha:</label>
+		<input type="password" asp-for="Password" />
+	</div>
+
+	<button type="submit">Entrar</button>
+
+	<p style="color:red">@Model.MensagemErro</p>
+
+	<div>
+		<p>Todos os direitos reservados (C) 2026</p>
+	</div>
+</form>
+
+@section Scripts{
+	<script>
+		// function pop-up de confirmacao
+		function confirmarLogin(){
+			return confirm("Deseja fazer o login do sistema?");
+		}
+	
+		//Mensagem de Logoff
+		@if (TempData["MensagemSucesso"] != null)
+		{
+			<text>
+				alert('@TempData["MensagemSucesso"]');
+			</text>
+		}
+	</script>
+}
+

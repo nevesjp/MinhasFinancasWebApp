@@ -1,0 +1,21 @@
+﻿@page
+@model MinhasFinancasWebApp.Pages.MenuModel
+@{
+	ViewData["Title"] = "Menu";
+}
+
+<h2>Bem-vindo ao sistema!</h2>
+
+<p>Usuário logado: <strong>@Model.UsuarioLogado</strong></p>
+
+<form method="post" asp-page-handler="Sair">
+	<button type="submit">Sair</button>
+</form>
+
+<hr />
+
+<ul>
+	<a class="btn btn-primary" asp-page="/Financeiro/Index">Módulo Financeiro</a>
+	<a class="btn btn-primary" asp-page="/BuscaCEP/Index">Consulta CEP (em breve)</a>
+	<li><a href="#">Cadastro (em breve)</a></li>
+</ul>

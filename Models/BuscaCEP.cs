@@ -2,22 +2,8 @@
 
 namespace MinhasFinancasWebApp.Models
 {
-    public class BuscaCEP
+    public class RegistroCEP
     {
-        /*
-         ***** Model**********
-                     * {
-              "code": "58070-402",
-              "state": "PB",
-              "city": "João Pessoa",
-              "district": "Cristo Redentor",
-              "address": "Rua Jorge do Espírito Santo",
-              "status": 200,
-              "ok": true,
-              "statusText": "ok"
-            } 
-         ********************
-         */
         public string cepConsultaText { get; set; }
 
         public string code { get; set; }

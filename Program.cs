@@ -5,6 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 // lista de registro das services do app:
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<FinanceiroService>();
+builder.Services.AddScoped<BuscaCEPService>();
 //Fim das services
 
 //Cria Sessao

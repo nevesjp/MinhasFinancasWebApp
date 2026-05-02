@@ -8,18 +8,15 @@
 
 <a asp-page="/Menu" class="btn btn-secondary">Menu Principal</a>
 
-
-<p>CEP:<input type="text"
-			  id="cep"
-			  name="cep"
-			  placeholder="00000-000"
-			  maxlength="9"
-			  pattern="\d{5}-?\d{3}"
-			  oninput="formatarCep(this)"
-			  asp-for="cepConsultaText" />
-</p>
-<form method="post" asp-page-handler="Consulta" onsubmit="confirmarConsulta()">
-<button class="btn-success" type="submit">Consultar CEP</button>
+<form method="post" onsubmit=" return confirmarConsulta()">
+	<div class="row mb-3">
+		<p>
+			CEP:<input type="text" asp-for="cepConsultaText"
+					   placeholder="00000-000" maxlength="9"
+					   pattern="\d{5}-?\d{3}" oninput="formatarCep(this)" />
+		</p>
+	</div>	
+	<button class="btn-success" type="submit">Consultar CEP</button>
 </form>
 
 @section Scripts{

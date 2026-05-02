@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using MinhasFinancasWebApp.Services;
 
 namespace MinhasFinancasWebApp.Pages.BuscaCEP
 {
@@ -15,15 +16,14 @@ namespace MinhasFinancasWebApp.Pages.BuscaCEP
         {
         }
 
-        public IActionResult OnPostConsulta() {
-
-            if (cepConsultaText == null)
+        public IActionResult OnPost() {
+            if (string.IsNullOrWhiteSpace(cepConsultaText))
             {
                 TempData["MensagemErro"] = "Informe um CEP valido!";
                 return Page();
             }
 
-            TempData["MensagemErro"] = "Consulta realizada com sucesso.";
+            TempData["MensagemErro"] = $"CEP Informado: {cepConsultaText.ToString()}";
             return Page();
         }
     }
